@@ -367,8 +367,8 @@ class MaskedAutoencoder(nn.Module):
         return loss_removed , loss_seen, forecast_loss, backcast_loss
 
 
-    def forward(self, x,y=torch.Tensor([1]).long().cuda()):
-        if self.scaler_layer != None:
+    def forward(self, x,y=torch.Tensor([1]).long().cuda() if torch.cuda.is_available() else torch.Tensor([1]).long()):
+        if self.scaler_layer is not None:
             x_ = self.scaler_layer(x)
         else:
             x_ = x
